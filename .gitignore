@@ -1,2 +1,3 @@
 # .gitignore for service weaver
 weaver_gen.go
+demo

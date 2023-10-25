@@ -1,0 +1,5 @@
+[serviceweaver]
+binary = "./demo"
+
+[multi]
+listeners.demo = { address = "localhost:9090" }

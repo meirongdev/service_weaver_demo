@@ -22,7 +22,7 @@ func main() {
 type app struct {
 	weaver.Implements[weaver.Main]
 	r   weaver.Ref[Reverser]
-	lis weaver.Listener
+	lis weaver.Listener `weaver:"demo"`
 }
 
 // run implements the application main.
