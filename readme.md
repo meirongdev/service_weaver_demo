@@ -74,3 +74,10 @@ weaver multi status
 ├──────┼────────────┼──────────┼────────────────┤
 │ demo │ 1d1d3728   │ demo     │ 127.0.0.1:9090 │
 ╰──────┴────────────┴──────────┴────────────────╯
+
+## Metrics and Tracing
+
+```shell
+weaver multi dashboard 
+```
+

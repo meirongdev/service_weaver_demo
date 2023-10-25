@@ -27,11 +27,13 @@ type app struct {
 
 // run implements the application main.
 func run(ctx context.Context, a *app) error {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintln(w, indexHtml)
-	})
+	var mux http.ServeMux
+	mux.Handle("/",
+		weaver.InstrumentHandlerFunc("demo", func(w http.ResponseWriter, r *http.Request) {
+			fmt.Fprintln(w, indexHtml)
+		}))
 
-	http.HandleFunc("/r", func(w http.ResponseWriter, r *http.Request) {
+	mux.Handle("/r", weaver.InstrumentHandlerFunc("demo", func(w http.ResponseWriter, r *http.Request) {
 		str := r.URL.Query().Get("s")
 		if str == "" {
 			http.Error(w, "missing 's' query parameter", http.StatusBadRequest)
@@ -44,8 +46,8 @@ func run(ctx context.Context, a *app) error {
 		}
 		fmt.Fprintln(w, res)
 		// w.Write([]byte(fmt.Sprintf("'%s' reversed is '%s'\n", str, res)))
-	})
+	}))
 
 	fmt.Println("listening on", a.lis)
-	return http.Serve(a.lis, nil)
+	return http.Serve(a.lis, &mux)
 }
