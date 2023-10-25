@@ -2,11 +2,15 @@ package main
 
 import (
 	"context"
+	_ "embed"
 	"fmt"
 	"net/http"
 
 	"github.com/ServiceWeaver/weaver"
 )
+
+//go:embed index.html
+var indexHtml string
 
 func main() {
 	if err := weaver.Run(context.Background(), run); err != nil {
@@ -23,6 +27,10 @@ type app struct {
 
 // run implements the application main.
 func run(ctx context.Context, a *app) error {
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintln(w, indexHtml)
+	})
+
 	http.HandleFunc("/r", func(w http.ResponseWriter, r *http.Request) {
 		str := r.URL.Query().Get("s")
 		if str == "" {
