@@ -4,7 +4,10 @@ import (
 	"context"
 
 	"github.com/ServiceWeaver/weaver"
+	"github.com/ServiceWeaver/weaver/metrics"
 )
+
+var metricsCounter = metrics.NewCounter("calls", "Number of calls")
 
 type Reverser interface {
 	Reverse(ctx context.Context, str string) (string, error)
@@ -15,6 +18,7 @@ type reverser struct {
 }
 
 func (r *reverser) Reverse(ctx context.Context, str string) (string, error) {
+	defer metricsCounter.Inc()
 	r.Logger(ctx).Debug("reversing", "str", str)
 	runes := []rune(str)
 	n := len(runes)
