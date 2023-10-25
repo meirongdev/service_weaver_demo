@@ -17,3 +17,15 @@ weaver generate .
 ```go
 go run .
 ```
+
+## Test the request
+
+每次启动都会有随即端口，可以将端口打印出来
+
+```go
+fmt.Println("listening on", a.lis)
+```
+
+```shell
+curl http://localhost:36289/r\?s\=1
+```
