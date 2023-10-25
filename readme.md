@@ -3,6 +3,8 @@
 ## Service Weaver Installation
 
 ```shell
+go install golang.org/x/tools/cmd/gonew@latest
+gonew github.com/ServiceWeaver/template demo
 go install github.com/ServiceWeaver/weaver/cmd/weaver@latest
 ```
 
