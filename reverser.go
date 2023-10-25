@@ -15,6 +15,7 @@ type reverser struct {
 }
 
 func (r *reverser) Reverse(ctx context.Context, str string) (string, error) {
+	r.Logger(ctx).Debug("reversing", "str", str)
 	runes := []rune(str)
 	n := len(runes)
 	for i := 0; i < n/2; i++ {
